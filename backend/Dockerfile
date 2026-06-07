@@ -6,9 +6,13 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libglib2.0-0 \
     libgomp1 \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 COPY backend/requirements.txt .
+
+# Install onnxruntime first (pre-built wheel) then the rest
+RUN pip install --no-cache-dir onnxruntime==1.16.0
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY backend/app/ ./app/
