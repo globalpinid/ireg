@@ -15,4 +15,4 @@ frontend/.flutter-plugins-dependencies
 qchat.md
 *.sh
 ireg.nginx.conf
-docker-compose.yml
+backend/docker-compose.yml
