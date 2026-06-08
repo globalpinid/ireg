@@ -7,10 +7,6 @@ class Settings(BaseSettings):
     model_name: str = "buffalo_sc"
 
     class Config:
-        # Only load .env in development — on Railway, env vars are injected directly
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        env_file_override = False  # Railway env vars take priority over .env
         protected_namespaces = ("settings_",)
 
     def __init__(self, **kwargs):

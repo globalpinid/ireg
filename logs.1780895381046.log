@@ -1,0 +1,738 @@
+2026-06-08T13:38:42.654436052Z [inf]  Starting Container
+2026-06-08T13:38:43.898659729Z [err]    File "/usr/local/bin/uvicorn", line 8, in <module>
+2026-06-08T13:38:43.898667999Z [err]      sys.exit(main())
+2026-06-08T13:38:43.898698838Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+2026-06-08T13:38:43.898708688Z [err]      return asyncio.run(self.serve(sockets=sockets))
+2026-06-08T13:38:43.898725208Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-06-08T13:38:43.898726178Z [err]      return self.main(*args, **kwargs)
+2026-06-08T13:38:43.898732388Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.898738738Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+2026-06-08T13:38:43.898740148Z [err]           ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.898743088Z [err]               ^^^^^^
+2026-06-08T13:38:43.898745348Z [err]      return callback(*args, **kwargs)
+2026-06-08T13:38:43.898753618Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+2026-06-08T13:38:43.898756528Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.898758468Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+2026-06-08T13:38:43.898765277Z [err]  Traceback (most recent call last):
+2026-06-08T13:38:43.898765427Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 416, in main
+2026-06-08T13:38:43.898770067Z [err]      run(
+2026-06-08T13:38:43.898775117Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+2026-06-08T13:38:43.898781017Z [err]      server.run()
+2026-06-08T13:38:43.898785267Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.898789907Z [err]      rv = self.invoke(ctx)
+2026-06-08T13:38:43.898794207Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1445, in main
+2026-06-08T13:38:43.899099723Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 904, in _parse_url
+2026-06-08T13:38:43.899103673Z [err]      raise exc.ArgumentError(
+2026-06-08T13:38:43.899106803Z [err]  sqlalchemy.exc.ArgumentError: Could not parse SQLAlchemy URL from string ''
+2026-06-08T13:38:43.899113463Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.899114143Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 548, in create_engine
+2026-06-08T13:38:43.899119342Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+2026-06-08T13:38:43.899121682Z [err]      u = _url.make_url(url)
+2026-06-08T13:38:43.899125302Z [err]      return runner.run(main)
+2026-06-08T13:38:43.899128782Z [err]          ^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.899131872Z [err]             ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.899135742Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 838, in make_url
+2026-06-08T13:38:43.899138542Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+2026-06-08T13:38:43.899142602Z [err]      return _parse_url(name_or_url)
+2026-06-08T13:38:43.899145522Z [err]      return self._loop.run_until_complete(task)
+2026-06-08T13:38:43.899151332Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.899151502Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.899156422Z [err]    File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+2026-06-08T13:38:43.899159742Z [err]      return future.result()
+2026-06-08T13:38:43.899162482Z [err]             ^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.899165032Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+2026-06-08T13:38:43.899167702Z [err]      config.load()
+2026-06-08T13:38:43.899170742Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+2026-06-08T13:38:43.899173612Z [err]      self.loaded_app = import_from_string(self.app)
+2026-06-08T13:38:43.899176182Z [err]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.899178902Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+2026-06-08T13:38:43.899182302Z [err]      module = importlib.import_module(module_str)
+2026-06-08T13:38:43.899185282Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.899188001Z [err]    File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-06-08T13:38:43.899190811Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-06-08T13:38:43.899193811Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.899235011Z [err]    File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-06-08T13:38:43.899237571Z [err]    File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-06-08T13:38:43.899240251Z [err]    File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-06-08T13:38:43.899242921Z [err]    File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-06-08T13:38:43.899245661Z [err]    File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-06-08T13:38:43.899248331Z [err]    File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-06-08T13:38:43.899251231Z [err]    File "/app/app/main.py", line 2, in <module>
+2026-06-08T13:38:43.899253581Z [err]      from app.database import init_db
+2026-06-08T13:38:43.899256271Z [err]    File "/app/app/database.py", line 5, in <module>
+2026-06-08T13:38:43.899259050Z [err]      engine = create_engine(settings.database_url)
+2026-06-08T13:38:43.899261950Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.899264610Z [err]    File "<string>", line 2, in create_engine
+2026-06-08T13:38:43.899267350Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+2026-06-08T13:38:43.899270880Z [err]      return fn(*args, **kwargs)  # type: ignore[no-any-return]
+2026-06-08T13:38:43.899273970Z [err]             ^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.972313283Z [err]  Traceback (most recent call last):
+2026-06-08T13:38:43.972315853Z [err]    File "/usr/local/bin/uvicorn", line 8, in <module>
+2026-06-08T13:38:43.972318403Z [err]      sys.exit(main())
+2026-06-08T13:38:43.972320883Z [err]               ^^^^^^
+2026-06-08T13:38:43.972323183Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+2026-06-08T13:38:43.972325743Z [err]      return self.main(*args, **kwargs)
+2026-06-08T13:38:43.972328203Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.972330593Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1445, in main
+2026-06-08T13:38:43.972332793Z [err]      rv = self.invoke(ctx)
+2026-06-08T13:38:43.972334973Z [err]           ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.972337133Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+2026-06-08T13:38:43.972339303Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-06-08T13:38:43.972341683Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.972344123Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+2026-06-08T13:38:43.972346623Z [err]      return callback(*args, **kwargs)
+2026-06-08T13:38:43.972348912Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.972351072Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 416, in main
+2026-06-08T13:38:43.972353292Z [err]      run(
+2026-06-08T13:38:43.972355542Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+2026-06-08T13:38:43.972358042Z [err]      server.run()
+2026-06-08T13:38:43.972360302Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+2026-06-08T13:38:43.972362562Z [err]      return asyncio.run(self.serve(sockets=sockets))
+2026-06-08T13:38:43.973031004Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.973033384Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+2026-06-08T13:38:43.973036144Z [err]      return runner.run(main)
+2026-06-08T13:38:43.973038384Z [err]             ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.973040804Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+2026-06-08T13:38:43.973043964Z [err]      return self._loop.run_until_complete(task)
+2026-06-08T13:38:43.973046724Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.973049404Z [err]    File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+2026-06-08T13:38:43.973052193Z [err]      return future.result()
+2026-06-08T13:38:43.973055143Z [err]             ^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.973058173Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+2026-06-08T13:38:43.973060793Z [err]      config.load()
+2026-06-08T13:38:43.973063693Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+2026-06-08T13:38:43.973066253Z [err]      self.loaded_app = import_from_string(self.app)
+2026-06-08T13:38:43.973068813Z [err]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.973071283Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+2026-06-08T13:38:43.973073793Z [err]      module = importlib.import_module(module_str)
+2026-06-08T13:38:43.973076843Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.973079143Z [err]    File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-06-08T13:38:43.973081413Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-06-08T13:38:43.973083673Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.973863803Z [err]    File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-06-08T13:38:43.973866743Z [err]    File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-06-08T13:38:43.973868963Z [err]    File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-06-08T13:38:43.973871373Z [err]    File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-06-08T13:38:43.973873623Z [err]    File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-06-08T13:38:43.973876403Z [err]    File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-06-08T13:38:43.973879243Z [err]    File "/app/app/main.py", line 2, in <module>
+2026-06-08T13:38:43.973881413Z [err]      from app.database import init_db
+2026-06-08T13:38:43.973884003Z [err]    File "/app/app/database.py", line 5, in <module>
+2026-06-08T13:38:43.973887893Z [err]      engine = create_engine(settings.database_url)
+2026-06-08T13:38:43.973890243Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.973892653Z [err]    File "<string>", line 2, in create_engine
+2026-06-08T13:38:43.973894883Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+2026-06-08T13:38:43.973897123Z [err]      return fn(*args, **kwargs)  # type: ignore[no-any-return]
+2026-06-08T13:38:43.973899392Z [err]             ^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.973901592Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 548, in create_engine
+2026-06-08T13:38:43.973904362Z [err]      u = _url.make_url(url)
+2026-06-08T13:38:43.973906992Z [err]          ^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.973910362Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 838, in make_url
+2026-06-08T13:38:43.973912962Z [err]      return _parse_url(name_or_url)
+2026-06-08T13:38:43.974283327Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:43.974286087Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 904, in _parse_url
+2026-06-08T13:38:43.974289017Z [err]      raise exc.ArgumentError(
+2026-06-08T13:38:43.974291867Z [err]  sqlalchemy.exc.ArgumentError: Could not parse SQLAlchemy URL from string ''
+2026-06-08T13:38:45.023717081Z [err]  Traceback (most recent call last):
+2026-06-08T13:38:45.023721071Z [err]    File "/usr/local/bin/uvicorn", line 8, in <module>
+2026-06-08T13:38:45.023724751Z [err]      sys.exit(main())
+2026-06-08T13:38:45.023728851Z [err]               ^^^^^^
+2026-06-08T13:38:45.023732141Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+2026-06-08T13:38:45.023737471Z [err]      return self.main(*args, **kwargs)
+2026-06-08T13:38:45.023740641Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023743581Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1445, in main
+2026-06-08T13:38:45.023746931Z [err]      rv = self.invoke(ctx)
+2026-06-08T13:38:45.023749891Z [err]           ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023753201Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+2026-06-08T13:38:45.023756311Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-06-08T13:38:45.023760021Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023762881Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+2026-06-08T13:38:45.023766021Z [err]      return callback(*args, **kwargs)
+2026-06-08T13:38:45.023768871Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023773391Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 416, in main
+2026-06-08T13:38:45.023776011Z [err]      run(
+2026-06-08T13:38:45.023778611Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+2026-06-08T13:38:45.023781991Z [err]      server.run()
+2026-06-08T13:38:45.023785451Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+2026-06-08T13:38:45.023788110Z [err]      return asyncio.run(self.serve(sockets=sockets))
+2026-06-08T13:38:45.023790480Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023793020Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+2026-06-08T13:38:45.023795810Z [err]      return runner.run(main)
+2026-06-08T13:38:45.023798770Z [err]             ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023802590Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+2026-06-08T13:38:45.023806190Z [err]      return self._loop.run_until_complete(task)
+2026-06-08T13:38:45.023809370Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023812500Z [err]    File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+2026-06-08T13:38:45.023815070Z [err]      return future.result()
+2026-06-08T13:38:45.023817670Z [err]             ^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023821010Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+2026-06-08T13:38:45.023823890Z [err]      config.load()
+2026-06-08T13:38:45.023828190Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+2026-06-08T13:38:45.023830900Z [err]      self.loaded_app = import_from_string(self.app)
+2026-06-08T13:38:45.023834220Z [err]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023837230Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+2026-06-08T13:38:45.023840080Z [err]      module = importlib.import_module(module_str)
+2026-06-08T13:38:45.023843420Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023846500Z [err]    File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-06-08T13:38:45.023849590Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-06-08T13:38:45.023852890Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023855610Z [err]    File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-06-08T13:38:45.023858579Z [err]    File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-06-08T13:38:45.023861689Z [err]    File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-06-08T13:38:45.023864769Z [err]    File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-06-08T13:38:45.023867539Z [err]    File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-06-08T13:38:45.023871139Z [err]    File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-06-08T13:38:45.023873959Z [err]    File "/app/app/main.py", line 2, in <module>
+2026-06-08T13:38:45.023876809Z [err]      from app.database import init_db
+2026-06-08T13:38:45.023879919Z [err]    File "/app/app/database.py", line 5, in <module>
+2026-06-08T13:38:45.023882729Z [err]      engine = create_engine(settings.database_url)
+2026-06-08T13:38:45.023885889Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023888859Z [err]    File "<string>", line 2, in create_engine
+2026-06-08T13:38:45.023892519Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+2026-06-08T13:38:45.023896029Z [err]      return fn(*args, **kwargs)  # type: ignore[no-any-return]
+2026-06-08T13:38:45.023898879Z [err]             ^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023901659Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 548, in create_engine
+2026-06-08T13:38:45.023904649Z [err]      u = _url.make_url(url)
+2026-06-08T13:38:45.023907639Z [err]          ^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023910599Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 838, in make_url
+2026-06-08T13:38:45.023913539Z [err]      return _parse_url(name_or_url)
+2026-06-08T13:38:45.023916779Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:45.023919909Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 904, in _parse_url
+2026-06-08T13:38:45.023922999Z [err]      raise exc.ArgumentError(
+2026-06-08T13:38:45.023926029Z [err]  sqlalchemy.exc.ArgumentError: Could not parse SQLAlchemy URL from string ''
+2026-06-08T13:38:46.073807497Z [err]  Traceback (most recent call last):
+2026-06-08T13:38:46.073809837Z [err]    File "/usr/local/bin/uvicorn", line 8, in <module>
+2026-06-08T13:38:46.073812737Z [err]      sys.exit(main())
+2026-06-08T13:38:46.073815387Z [err]               ^^^^^^
+2026-06-08T13:38:46.073817757Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+2026-06-08T13:38:46.073819997Z [err]      return self.main(*args, **kwargs)
+2026-06-08T13:38:46.073822127Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.073824427Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1445, in main
+2026-06-08T13:38:46.073827227Z [err]      rv = self.invoke(ctx)
+2026-06-08T13:38:46.073829547Z [err]           ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.073831787Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+2026-06-08T13:38:46.073833987Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-06-08T13:38:46.073836437Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.073838907Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+2026-06-08T13:38:46.073841367Z [err]      return callback(*args, **kwargs)
+2026-06-08T13:38:46.073843707Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.073845947Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 416, in main
+2026-06-08T13:38:46.073848127Z [err]      run(
+2026-06-08T13:38:46.073850657Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+2026-06-08T13:38:46.073853076Z [err]      server.run()
+2026-06-08T13:38:46.073855376Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+2026-06-08T13:38:46.073857586Z [err]      return asyncio.run(self.serve(sockets=sockets))
+2026-06-08T13:38:46.074650225Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.074653465Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+2026-06-08T13:38:46.074656375Z [err]      return runner.run(main)
+2026-06-08T13:38:46.074659625Z [err]             ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.074662295Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+2026-06-08T13:38:46.074665165Z [err]      return self._loop.run_until_complete(task)
+2026-06-08T13:38:46.074667985Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.074670535Z [err]    File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+2026-06-08T13:38:46.074673675Z [err]      return future.result()
+2026-06-08T13:38:46.074676865Z [err]             ^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.074679835Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+2026-06-08T13:38:46.074683125Z [err]      config.load()
+2026-06-08T13:38:46.074685605Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+2026-06-08T13:38:46.074687905Z [err]      self.loaded_app = import_from_string(self.app)
+2026-06-08T13:38:46.074690405Z [err]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.074693065Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+2026-06-08T13:38:46.074696425Z [err]      module = importlib.import_module(module_str)
+2026-06-08T13:38:46.074698854Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.074701244Z [err]    File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-06-08T13:38:46.074703664Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-06-08T13:38:46.074705994Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.075248858Z [err]    File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-06-08T13:38:46.075251328Z [err]    File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-06-08T13:38:46.075254178Z [err]    File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-06-08T13:38:46.075256508Z [err]    File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-06-08T13:38:46.075259138Z [err]    File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-06-08T13:38:46.075261278Z [err]    File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-06-08T13:38:46.075263358Z [err]    File "/app/app/main.py", line 2, in <module>
+2026-06-08T13:38:46.075265458Z [err]      from app.database import init_db
+2026-06-08T13:38:46.075267637Z [err]    File "/app/app/database.py", line 5, in <module>
+2026-06-08T13:38:46.075270057Z [err]      engine = create_engine(settings.database_url)
+2026-06-08T13:38:46.075272817Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.075274847Z [err]    File "<string>", line 2, in create_engine
+2026-06-08T13:38:46.075276947Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+2026-06-08T13:38:46.075279047Z [err]      return fn(*args, **kwargs)  # type: ignore[no-any-return]
+2026-06-08T13:38:46.075281387Z [err]             ^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.075283667Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 548, in create_engine
+2026-06-08T13:38:46.075285797Z [err]      u = _url.make_url(url)
+2026-06-08T13:38:46.075288467Z [err]          ^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.075291227Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 838, in make_url
+2026-06-08T13:38:46.075293637Z [err]      return _parse_url(name_or_url)
+2026-06-08T13:38:46.075692052Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:46.075695341Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 904, in _parse_url
+2026-06-08T13:38:46.075697791Z [err]      raise exc.ArgumentError(
+2026-06-08T13:38:46.075700011Z [err]  sqlalchemy.exc.ArgumentError: Could not parse SQLAlchemy URL from string ''
+2026-06-08T13:38:47.055950031Z [err]  Traceback (most recent call last):
+2026-06-08T13:38:47.055953091Z [err]    File "/usr/local/bin/uvicorn", line 8, in <module>
+2026-06-08T13:38:47.055955651Z [err]      sys.exit(main())
+2026-06-08T13:38:47.055959781Z [err]               ^^^^^^
+2026-06-08T13:38:47.055962841Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+2026-06-08T13:38:47.055965161Z [err]      return self.main(*args, **kwargs)
+2026-06-08T13:38:47.055967431Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.055969941Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1445, in main
+2026-06-08T13:38:47.055972251Z [err]      rv = self.invoke(ctx)
+2026-06-08T13:38:47.055975251Z [err]           ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.055978381Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+2026-06-08T13:38:47.055981001Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-06-08T13:38:47.055983311Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.055985881Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+2026-06-08T13:38:47.055988671Z [err]      return callback(*args, **kwargs)
+2026-06-08T13:38:47.055990921Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.055993191Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 416, in main
+2026-06-08T13:38:47.055995501Z [err]      run(
+2026-06-08T13:38:47.055998491Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+2026-06-08T13:38:47.056000851Z [err]      server.run()
+2026-06-08T13:38:47.056003841Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+2026-06-08T13:38:47.056006011Z [err]      return asyncio.run(self.serve(sockets=sockets))
+2026-06-08T13:38:47.056294876Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.056298106Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+2026-06-08T13:38:47.056301086Z [err]      return runner.run(main)
+2026-06-08T13:38:47.056303666Z [err]             ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.056306106Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+2026-06-08T13:38:47.056309456Z [err]      return self._loop.run_until_complete(task)
+2026-06-08T13:38:47.056313166Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.056316446Z [err]    File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+2026-06-08T13:38:47.056318836Z [err]      return future.result()
+2026-06-08T13:38:47.056322226Z [err]             ^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.056325056Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+2026-06-08T13:38:47.056327606Z [err]      config.load()
+2026-06-08T13:38:47.056330386Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+2026-06-08T13:38:47.056333366Z [err]      self.loaded_app = import_from_string(self.app)
+2026-06-08T13:38:47.056337286Z [err]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.056339696Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+2026-06-08T13:38:47.056342366Z [err]      module = importlib.import_module(module_str)
+2026-06-08T13:38:47.056345056Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.056347736Z [err]    File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-06-08T13:38:47.056350216Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-06-08T13:38:47.056352596Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.056956058Z [err]    File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-06-08T13:38:47.056958968Z [err]    File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-06-08T13:38:47.056961468Z [err]    File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-06-08T13:38:47.056964468Z [err]    File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-06-08T13:38:47.056968048Z [err]    File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-06-08T13:38:47.056970538Z [err]    File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-06-08T13:38:47.056973118Z [err]    File "/app/app/main.py", line 2, in <module>
+2026-06-08T13:38:47.056975548Z [err]      from app.database import init_db
+2026-06-08T13:38:47.056977718Z [err]    File "/app/app/database.py", line 5, in <module>
+2026-06-08T13:38:47.056980008Z [err]      engine = create_engine(settings.database_url)
+2026-06-08T13:38:47.056982108Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.056984758Z [err]    File "<string>", line 2, in create_engine
+2026-06-08T13:38:47.056987318Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+2026-06-08T13:38:47.056989808Z [err]      return fn(*args, **kwargs)  # type: ignore[no-any-return]
+2026-06-08T13:38:47.056992078Z [err]             ^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.056994877Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 548, in create_engine
+2026-06-08T13:38:47.056997577Z [err]      u = _url.make_url(url)
+2026-06-08T13:38:47.056999787Z [err]          ^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.057001937Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 838, in make_url
+2026-06-08T13:38:47.057004487Z [err]      return _parse_url(name_or_url)
+2026-06-08T13:38:47.057536520Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:47.057539570Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 904, in _parse_url
+2026-06-08T13:38:47.057541980Z [err]      raise exc.ArgumentError(
+2026-06-08T13:38:47.057544530Z [err]  sqlalchemy.exc.ArgumentError: Could not parse SQLAlchemy URL from string ''
+2026-06-08T13:38:48.146164611Z [err]  Traceback (most recent call last):
+2026-06-08T13:38:48.146168471Z [err]    File "/usr/local/bin/uvicorn", line 8, in <module>
+2026-06-08T13:38:48.146170921Z [err]      sys.exit(main())
+2026-06-08T13:38:48.146173471Z [err]               ^^^^^^
+2026-06-08T13:38:48.146178281Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+2026-06-08T13:38:48.146181421Z [err]      return self.main(*args, **kwargs)
+2026-06-08T13:38:48.146183821Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.146186121Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1445, in main
+2026-06-08T13:38:48.146189361Z [err]      rv = self.invoke(ctx)
+2026-06-08T13:38:48.146191871Z [err]           ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.146194521Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+2026-06-08T13:38:48.146197451Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-06-08T13:38:48.146199751Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.146201941Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+2026-06-08T13:38:48.146204161Z [err]      return callback(*args, **kwargs)
+2026-06-08T13:38:48.146206820Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.146209110Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 416, in main
+2026-06-08T13:38:48.146211320Z [err]      run(
+2026-06-08T13:38:48.146213580Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+2026-06-08T13:38:48.146215950Z [err]      server.run()
+2026-06-08T13:38:48.146218180Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+2026-06-08T13:38:48.146220880Z [err]      return asyncio.run(self.serve(sockets=sockets))
+2026-06-08T13:38:48.147763359Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.147768239Z [err]    File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-06-08T13:38:48.147773049Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-06-08T13:38:48.147778169Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.147785609Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.147790589Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+2026-06-08T13:38:48.147795269Z [err]      return runner.run(main)
+2026-06-08T13:38:48.147798549Z [err]             ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.147801909Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+2026-06-08T13:38:48.147805879Z [err]      return self._loop.run_until_complete(task)
+2026-06-08T13:38:48.147809179Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.147812539Z [err]    File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+2026-06-08T13:38:48.147816009Z [err]      return future.result()
+2026-06-08T13:38:48.147821219Z [err]             ^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.147824879Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+2026-06-08T13:38:48.147828419Z [err]      config.load()
+2026-06-08T13:38:48.147833118Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+2026-06-08T13:38:48.147836798Z [err]      self.loaded_app = import_from_string(self.app)
+2026-06-08T13:38:48.147840598Z [err]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.147843888Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+2026-06-08T13:38:48.147847168Z [err]      module = importlib.import_module(module_str)
+2026-06-08T13:38:48.147975316Z [err]    File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-06-08T13:38:48.147979016Z [err]    File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-06-08T13:38:48.147981946Z [err]    File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-06-08T13:38:48.147984356Z [err]    File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-06-08T13:38:48.147986736Z [err]    File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-06-08T13:38:48.147989996Z [err]    File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-06-08T13:38:48.148013036Z [err]    File "/app/app/main.py", line 2, in <module>
+2026-06-08T13:38:48.148015566Z [err]      from app.database import init_db
+2026-06-08T13:38:48.148018786Z [err]    File "/app/app/database.py", line 5, in <module>
+2026-06-08T13:38:48.148021216Z [err]      engine = create_engine(settings.database_url)
+2026-06-08T13:38:48.148023426Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.148026226Z [err]    File "<string>", line 2, in create_engine
+2026-06-08T13:38:48.148028816Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+2026-06-08T13:38:48.148035036Z [err]      return fn(*args, **kwargs)  # type: ignore[no-any-return]
+2026-06-08T13:38:48.148038176Z [err]             ^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.148040586Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 548, in create_engine
+2026-06-08T13:38:48.148043075Z [err]      u = _url.make_url(url)
+2026-06-08T13:38:48.148045675Z [err]          ^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.148047905Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 838, in make_url
+2026-06-08T13:38:48.148050155Z [err]      return _parse_url(name_or_url)
+2026-06-08T13:38:48.149639314Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:48.149643014Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 904, in _parse_url
+2026-06-08T13:38:48.149646344Z [err]      raise exc.ArgumentError(
+2026-06-08T13:38:48.149649254Z [err]  sqlalchemy.exc.ArgumentError: Could not parse SQLAlchemy URL from string ''
+2026-06-08T13:38:49.236923043Z [err]  Traceback (most recent call last):
+2026-06-08T13:38:49.236926643Z [err]    File "/usr/local/bin/uvicorn", line 8, in <module>
+2026-06-08T13:38:49.236929173Z [err]      sys.exit(main())
+2026-06-08T13:38:49.236931723Z [err]               ^^^^^^
+2026-06-08T13:38:49.236933923Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+2026-06-08T13:38:49.236936013Z [err]      return self.main(*args, **kwargs)
+2026-06-08T13:38:49.236938283Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.236940423Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1445, in main
+2026-06-08T13:38:49.236943693Z [err]      rv = self.invoke(ctx)
+2026-06-08T13:38:49.236945983Z [err]           ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.236948273Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+2026-06-08T13:38:49.236951413Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-06-08T13:38:49.236953633Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.236956303Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+2026-06-08T13:38:49.236959123Z [err]      return callback(*args, **kwargs)
+2026-06-08T13:38:49.236961363Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.236963372Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 416, in main
+2026-06-08T13:38:49.236965432Z [err]      run(
+2026-06-08T13:38:49.236967692Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+2026-06-08T13:38:49.236969872Z [err]      server.run()
+2026-06-08T13:38:49.236971872Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+2026-06-08T13:38:49.236973962Z [err]      return asyncio.run(self.serve(sockets=sockets))
+2026-06-08T13:38:49.237539224Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.237542594Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+2026-06-08T13:38:49.237546224Z [err]      return runner.run(main)
+2026-06-08T13:38:49.237548594Z [err]             ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.237550814Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+2026-06-08T13:38:49.237553054Z [err]      return self._loop.run_until_complete(task)
+2026-06-08T13:38:49.237555444Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.237557604Z [err]    File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+2026-06-08T13:38:49.237559794Z [err]      return future.result()
+2026-06-08T13:38:49.237562544Z [err]             ^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.237564684Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+2026-06-08T13:38:49.237566974Z [err]      config.load()
+2026-06-08T13:38:49.237569384Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+2026-06-08T13:38:49.237572544Z [err]      self.loaded_app = import_from_string(self.app)
+2026-06-08T13:38:49.237574804Z [err]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.237576974Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+2026-06-08T13:38:49.237579814Z [err]      module = importlib.import_module(module_str)
+2026-06-08T13:38:49.237583244Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.237585454Z [err]    File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-06-08T13:38:49.237588034Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-06-08T13:38:49.237590494Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.238001138Z [err]    File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-06-08T13:38:49.238007108Z [err]    File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-06-08T13:38:49.238010278Z [err]    File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-06-08T13:38:49.238012868Z [err]    File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-06-08T13:38:49.238015218Z [err]    File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-06-08T13:38:49.238017888Z [err]    File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-06-08T13:38:49.238020458Z [err]    File "/app/app/main.py", line 2, in <module>
+2026-06-08T13:38:49.238023048Z [err]      from app.database import init_db
+2026-06-08T13:38:49.238025768Z [err]    File "/app/app/database.py", line 5, in <module>
+2026-06-08T13:38:49.238028538Z [err]      engine = create_engine(settings.database_url)
+2026-06-08T13:38:49.238030957Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.238033577Z [err]    File "<string>", line 2, in create_engine
+2026-06-08T13:38:49.238035997Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+2026-06-08T13:38:49.238038457Z [err]      return fn(*args, **kwargs)  # type: ignore[no-any-return]
+2026-06-08T13:38:49.238040967Z [err]             ^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.238044137Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 548, in create_engine
+2026-06-08T13:38:49.238047677Z [err]      u = _url.make_url(url)
+2026-06-08T13:38:49.238050967Z [err]          ^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.238054467Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 838, in make_url
+2026-06-08T13:38:49.238057707Z [err]      return _parse_url(name_or_url)
+2026-06-08T13:38:49.238062117Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:49.238066237Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 904, in _parse_url
+2026-06-08T13:38:49.238069977Z [err]      raise exc.ArgumentError(
+2026-06-08T13:38:49.238073277Z [err]  sqlalchemy.exc.ArgumentError: Could not parse SQLAlchemy URL from string ''
+2026-06-08T13:38:50.286060462Z [err]  Traceback (most recent call last):
+2026-06-08T13:38:50.286063942Z [err]    File "/usr/local/bin/uvicorn", line 8, in <module>
+2026-06-08T13:38:50.286066332Z [err]      sys.exit(main())
+2026-06-08T13:38:50.286068582Z [err]               ^^^^^^
+2026-06-08T13:38:50.286071192Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+2026-06-08T13:38:50.289908619Z [err]      return self.main(*args, **kwargs)
+2026-06-08T13:38:50.289911169Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.289913469Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1445, in main
+2026-06-08T13:38:50.289916609Z [err]      rv = self.invoke(ctx)
+2026-06-08T13:38:50.289918949Z [err]           ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.289922060Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+2026-06-08T13:38:50.289924590Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-06-08T13:38:50.289927310Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.289929650Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+2026-06-08T13:38:50.289932330Z [err]      return callback(*args, **kwargs)
+2026-06-08T13:38:50.289934650Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.289936850Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 416, in main
+2026-06-08T13:38:50.289938970Z [err]      run(
+2026-06-08T13:38:50.289941210Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+2026-06-08T13:38:50.289943800Z [err]      server.run()
+2026-06-08T13:38:50.289946210Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+2026-06-08T13:38:50.289948700Z [err]      return asyncio.run(self.serve(sockets=sockets))
+2026-06-08T13:38:50.289951430Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.289953530Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+2026-06-08T13:38:50.289955840Z [err]      return runner.run(main)
+2026-06-08T13:38:50.289958030Z [err]             ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.289960240Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+2026-06-08T13:38:50.290473332Z [err]      return self._loop.run_until_complete(task)
+2026-06-08T13:38:50.290475872Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.290478342Z [err]    File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+2026-06-08T13:38:50.290481032Z [err]      return future.result()
+2026-06-08T13:38:50.290483302Z [err]             ^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.290485822Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+2026-06-08T13:38:50.290488152Z [err]      config.load()
+2026-06-08T13:38:50.290490612Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+2026-06-08T13:38:50.290492932Z [err]      self.loaded_app = import_from_string(self.app)
+2026-06-08T13:38:50.290495462Z [err]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.290498292Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+2026-06-08T13:38:50.290500802Z [err]      module = importlib.import_module(module_str)
+2026-06-08T13:38:50.290503342Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.290506272Z [err]    File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-06-08T13:38:50.290508772Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-06-08T13:38:50.290511672Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.290514172Z [err]    File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-06-08T13:38:50.290516762Z [err]    File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-06-08T13:38:50.290519152Z [err]    File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-06-08T13:38:50.290521372Z [err]    File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-06-08T13:38:50.290734959Z [err]    File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-06-08T13:38:50.290738849Z [err]    File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-06-08T13:38:50.290741469Z [err]    File "/app/app/main.py", line 2, in <module>
+2026-06-08T13:38:50.290743718Z [err]      from app.database import init_db
+2026-06-08T13:38:50.290746098Z [err]    File "/app/app/database.py", line 5, in <module>
+2026-06-08T13:38:50.290748508Z [err]      engine = create_engine(settings.database_url)
+2026-06-08T13:38:50.290751108Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.290753298Z [err]    File "<string>", line 2, in create_engine
+2026-06-08T13:38:50.290755488Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+2026-06-08T13:38:50.290757798Z [err]      return fn(*args, **kwargs)  # type: ignore[no-any-return]
+2026-06-08T13:38:50.290760028Z [err]             ^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.290762118Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 548, in create_engine
+2026-06-08T13:38:50.290764088Z [err]      u = _url.make_url(url)
+2026-06-08T13:38:50.290766538Z [err]          ^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.290768958Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 838, in make_url
+2026-06-08T13:38:50.290771188Z [err]      return _parse_url(name_or_url)
+2026-06-08T13:38:50.290773768Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:50.290776428Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 904, in _parse_url
+2026-06-08T13:38:50.290778608Z [err]      raise exc.ArgumentError(
+2026-06-08T13:38:50.290780768Z [err]  sqlalchemy.exc.ArgumentError: Could not parse SQLAlchemy URL from string ''
+2026-06-08T13:38:51.301319213Z [err]  Traceback (most recent call last):
+2026-06-08T13:38:51.301322603Z [err]    File "/usr/local/bin/uvicorn", line 8, in <module>
+2026-06-08T13:38:51.301325443Z [err]      sys.exit(main())
+2026-06-08T13:38:51.301328543Z [err]               ^^^^^^
+2026-06-08T13:38:51.301330823Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+2026-06-08T13:38:51.301333233Z [err]      return self.main(*args, **kwargs)
+2026-06-08T13:38:51.301335583Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.301338612Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1445, in main
+2026-06-08T13:38:51.301341122Z [err]      rv = self.invoke(ctx)
+2026-06-08T13:38:51.301343342Z [err]           ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.301345572Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+2026-06-08T13:38:51.301347992Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-06-08T13:38:51.301350362Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.301352872Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+2026-06-08T13:38:51.301355542Z [err]      return callback(*args, **kwargs)
+2026-06-08T13:38:51.301357962Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.301360452Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 416, in main
+2026-06-08T13:38:51.301362852Z [err]      run(
+2026-06-08T13:38:51.301365392Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+2026-06-08T13:38:51.301367702Z [err]      server.run()
+2026-06-08T13:38:51.301375912Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+2026-06-08T13:38:51.301380422Z [err]      return asyncio.run(self.serve(sockets=sockets))
+2026-06-08T13:38:51.301873866Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.301876596Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+2026-06-08T13:38:51.302163622Z [err]      return runner.run(main)
+2026-06-08T13:38:51.302174342Z [err]             ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.302181372Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+2026-06-08T13:38:51.302186411Z [err]    File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-06-08T13:38:51.302189231Z [err]      return self._loop.run_until_complete(task)
+2026-06-08T13:38:51.302192131Z [err]    File "/app/app/main.py", line 2, in <module>
+2026-06-08T13:38:51.302196371Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.302198751Z [err]      from app.database import init_db
+2026-06-08T13:38:51.302202521Z [err]    File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+2026-06-08T13:38:51.302206001Z [err]      return future.result()
+2026-06-08T13:38:51.302209591Z [err]             ^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.302213061Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+2026-06-08T13:38:51.302216561Z [err]      config.load()
+2026-06-08T13:38:51.302219661Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+2026-06-08T13:38:51.302222731Z [err]      self.loaded_app = import_from_string(self.app)
+2026-06-08T13:38:51.302226481Z [err]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.302229671Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+2026-06-08T13:38:51.302232891Z [err]      module = importlib.import_module(module_str)
+2026-06-08T13:38:51.302237291Z [err]    File "/app/app/database.py", line 5, in <module>
+2026-06-08T13:38:51.302239981Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.302244711Z [err]    File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-06-08T13:38:51.302248371Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-06-08T13:38:51.302251091Z [err]      engine = create_engine(settings.database_url)
+2026-06-08T13:38:51.302252450Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.302257420Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.302260130Z [err]    File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-06-08T13:38:51.302262950Z [err]    File "<string>", line 2, in create_engine
+2026-06-08T13:38:51.302267130Z [err]    File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-06-08T13:38:51.302269310Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+2026-06-08T13:38:51.302274900Z [err]    File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-06-08T13:38:51.302275220Z [err]      return fn(*args, **kwargs)  # type: ignore[no-any-return]
+2026-06-08T13:38:51.302282200Z [err]             ^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.302282330Z [err]    File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-06-08T13:38:51.302289020Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 548, in create_engine
+2026-06-08T13:38:51.302289390Z [err]    File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-06-08T13:38:51.302294460Z [err]      u = _url.make_url(url)
+2026-06-08T13:38:51.302296980Z [err]          ^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.302299820Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 838, in make_url
+2026-06-08T13:38:51.302302600Z [err]      return _parse_url(name_or_url)
+2026-06-08T13:38:51.302304940Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:51.302307180Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 904, in _parse_url
+2026-06-08T13:38:51.302309650Z [err]      raise exc.ArgumentError(
+2026-06-08T13:38:51.302312130Z [err]  sqlalchemy.exc.ArgumentError: Could not parse SQLAlchemy URL from string ''
+2026-06-08T13:38:52.269421256Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+2026-06-08T13:38:52.269426716Z [err]      self.loaded_app = import_from_string(self.app)
+2026-06-08T13:38:52.269431545Z [err]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269448435Z [err]  Traceback (most recent call last):
+2026-06-08T13:38:52.269453285Z [err]    File "/usr/local/bin/uvicorn", line 8, in <module>
+2026-06-08T13:38:52.269457965Z [err]      sys.exit(main())
+2026-06-08T13:38:52.269461455Z [err]               ^^^^^^
+2026-06-08T13:38:52.269464745Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+2026-06-08T13:38:52.269468295Z [err]      return self.main(*args, **kwargs)
+2026-06-08T13:38:52.269471415Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269475115Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1445, in main
+2026-06-08T13:38:52.269483035Z [err]             ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269485555Z [err]      return asyncio.run(self.serve(sockets=sockets))
+2026-06-08T13:38:52.269489305Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+2026-06-08T13:38:52.269493455Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269495815Z [err]      return self._loop.run_until_complete(task)
+2026-06-08T13:38:52.269499595Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+2026-06-08T13:38:52.269503114Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269507794Z [err]      return runner.run(main)
+2026-06-08T13:38:52.269509934Z [err]    File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+2026-06-08T13:38:52.269513404Z [err]      return future.result()
+2026-06-08T13:38:52.269519854Z [err]             ^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269522644Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 416, in main
+2026-06-08T13:38:52.269527584Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+2026-06-08T13:38:52.269532464Z [err]      run(
+2026-06-08T13:38:52.269535084Z [err]      config.load()
+2026-06-08T13:38:52.269544474Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+2026-06-08T13:38:52.269546274Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+2026-06-08T13:38:52.269550254Z [err]      server.run()
+2026-06-08T13:38:52.269554904Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+2026-06-08T13:38:52.269559344Z [err]      return callback(*args, **kwargs)
+2026-06-08T13:38:52.269567274Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269567534Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+2026-06-08T13:38:52.269571153Z [err]      rv = self.invoke(ctx)
+2026-06-08T13:38:52.269574603Z [err]      module = importlib.import_module(module_str)
+2026-06-08T13:38:52.269579513Z [err]           ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269582163Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269588063Z [err]    File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-06-08T13:38:52.269588523Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+2026-06-08T13:38:52.269595383Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-06-08T13:38:52.269595713Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-06-08T13:38:52.269603303Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269604173Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269608753Z [err]    File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-06-08T13:38:52.269611683Z [err]    File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-06-08T13:38:52.269615433Z [err]    File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-06-08T13:38:52.269619093Z [err]    File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-06-08T13:38:52.269622723Z [err]    File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-06-08T13:38:52.269626083Z [err]    File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-06-08T13:38:52.269629133Z [err]    File "/app/app/main.py", line 2, in <module>
+2026-06-08T13:38:52.269632023Z [err]      from app.database import init_db
+2026-06-08T13:38:52.269635113Z [err]    File "/app/app/database.py", line 5, in <module>
+2026-06-08T13:38:52.269638333Z [err]      engine = create_engine(settings.database_url)
+2026-06-08T13:38:52.269641433Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269645112Z [err]    File "<string>", line 2, in create_engine
+2026-06-08T13:38:52.269648142Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+2026-06-08T13:38:52.269651292Z [err]      return fn(*args, **kwargs)  # type: ignore[no-any-return]
+2026-06-08T13:38:52.269654102Z [err]             ^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269657502Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 548, in create_engine
+2026-06-08T13:38:52.269662302Z [err]      u = _url.make_url(url)
+2026-06-08T13:38:52.269665062Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269669102Z [err]          ^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:52.269673292Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 904, in _parse_url
+2026-06-08T13:38:52.269675612Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 838, in make_url
+2026-06-08T13:38:52.269681572Z [err]      return _parse_url(name_or_url)
+2026-06-08T13:38:52.269682362Z [err]      raise exc.ArgumentError(
+2026-06-08T13:38:52.269686922Z [err]  sqlalchemy.exc.ArgumentError: Could not parse SQLAlchemy URL from string ''
+2026-06-08T13:38:53.307221746Z [err]  Traceback (most recent call last):
+2026-06-08T13:38:53.307224136Z [err]    File "/usr/local/bin/uvicorn", line 8, in <module>
+2026-06-08T13:38:53.307226516Z [err]      sys.exit(main())
+2026-06-08T13:38:53.307228796Z [err]               ^^^^^^
+2026-06-08T13:38:53.307231546Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+2026-06-08T13:38:53.307233996Z [err]      return self.main(*args, **kwargs)
+2026-06-08T13:38:53.307236536Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307239256Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1445, in main
+2026-06-08T13:38:53.307241436Z [err]      rv = self.invoke(ctx)
+2026-06-08T13:38:53.307243926Z [err]           ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307246286Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+2026-06-08T13:38:53.307249146Z [err]      return ctx.invoke(self.callback, **ctx.params)
+2026-06-08T13:38:53.307251326Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307253486Z [err]    File "/usr/local/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+2026-06-08T13:38:53.307255706Z [err]      return callback(*args, **kwargs)
+2026-06-08T13:38:53.307258056Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307260956Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 416, in main
+2026-06-08T13:38:53.307263416Z [err]      run(
+2026-06-08T13:38:53.307265975Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+2026-06-08T13:38:53.307268125Z [err]      server.run()
+2026-06-08T13:38:53.307270255Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 61, in run
+2026-06-08T13:38:53.307272435Z [err]      return asyncio.run(self.serve(sockets=sockets))
+2026-06-08T13:38:53.307806709Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307809279Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+2026-06-08T13:38:53.307811769Z [err]      return runner.run(main)
+2026-06-08T13:38:53.307814139Z [err]             ^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307816269Z [err]    File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+2026-06-08T13:38:53.307818499Z [err]      return self._loop.run_until_complete(task)
+2026-06-08T13:38:53.307821479Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307823679Z [err]    File "/usr/local/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+2026-06-08T13:38:53.307825849Z [err]      return future.result()
+2026-06-08T13:38:53.307828118Z [err]             ^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307830398Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/server.py", line 68, in serve
+2026-06-08T13:38:53.307832658Z [err]      config.load()
+2026-06-08T13:38:53.307834818Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/config.py", line 467, in load
+2026-06-08T13:38:53.307837978Z [err]      self.loaded_app = import_from_string(self.app)
+2026-06-08T13:38:53.307840528Z [err]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307842528Z [err]    File "/usr/local/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+2026-06-08T13:38:53.307844868Z [err]      module = importlib.import_module(module_str)
+2026-06-08T13:38:53.307847028Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307849218Z [err]    File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+2026-06-08T13:38:53.307851418Z [err]      return _bootstrap._gcd_import(name[level:], package, level)
+2026-06-08T13:38:53.307853458Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307855488Z [err]    File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+2026-06-08T13:38:53.307857508Z [err]    File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+2026-06-08T13:38:53.307859708Z [err]    File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+2026-06-08T13:38:53.307861798Z [err]    File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+2026-06-08T13:38:53.307863928Z [err]    File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+2026-06-08T13:38:53.307865948Z [err]    File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+2026-06-08T13:38:53.307868038Z [err]    File "/app/app/main.py", line 2, in <module>
+2026-06-08T13:38:53.307870228Z [err]      from app.database import init_db
+2026-06-08T13:38:53.307872248Z [err]    File "/app/app/database.py", line 5, in <module>
+2026-06-08T13:38:53.307874368Z [err]      engine = create_engine(settings.database_url)
+2026-06-08T13:38:53.307876628Z [err]               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307878748Z [err]    File "<string>", line 2, in create_engine
+2026-06-08T13:38:53.307880798Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 281, in warned
+2026-06-08T13:38:53.307883118Z [err]      return fn(*args, **kwargs)  # type: ignore[no-any-return]
+2026-06-08T13:38:53.307886108Z [err]             ^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307888148Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/create.py", line 548, in create_engine
+2026-06-08T13:38:53.307890218Z [err]      u = _url.make_url(url)
+2026-06-08T13:38:53.307892238Z [err]          ^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307894388Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 838, in make_url
+2026-06-08T13:38:53.307896488Z [err]      return _parse_url(name_or_url)
+2026-06-08T13:38:53.307898478Z [err]             ^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-08T13:38:53.307900607Z [err]    File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/url.py", line 904, in _parse_url
+2026-06-08T13:38:53.307902687Z [err]      raise exc.ArgumentError(
+2026-06-08T13:38:53.307904737Z [err]  sqlalchemy.exc.ArgumentError: Could not parse SQLAlchemy URL from string ''
