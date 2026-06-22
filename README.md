@@ -75,3 +75,24 @@ cd /Users/kkts/Documents/projects/personal/ireg/frontend && flutter pub get 2>&1
 --Building the Flutter web app to verify no compilation errors
 
 cd /Users/kkts/Documents/projects/personal/ireg/frontend && flutter build web 2>&1 | tail -5
+
+--build the apk file
+
+cd d:\projects\ireg\frontend
+flutter clean
+flutter pub get
+flutter build apk --dart-define=API_URL=https://ireg-production.up.railway.app
+
+--to deploy in platstore (only first time)
+
+cd d:\projects\ireg\frontend
+keytool -genkey -v -keystore ireg-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias ireg
+
+move ireg-keystore.jks android\app\ireg-keystore.jks
+
+(do this always when ever you want to re or deploy)
+flutter build appbundle --dart-define=API_URL=https://ireg-production.up.railway.app
+
+cd d:\projects\ireg\frontend
+
+> > flutter build apk --dart-define=API_URL=https://ireg-production.up.railway.app
