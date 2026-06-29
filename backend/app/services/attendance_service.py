@@ -40,7 +40,15 @@ def process_attendance(db: DBSession, image_bytes: bytes, session_date: date, se
         if best_match and best_score >= settings.face_similarity_threshold:
             # Avoid duplicate marking in same session
             if best_match.id not in [s["id"] for s in matched_students]:
-                matched_students.append({"id": best_match.id, "name": best_match.name, "confidence": best_score})
+                matched_students.append(
+                    {
+                        "id": best_match.id,
+                        "name": best_match.name,
+                        "belt_color": best_match.belt_color,
+                        "photo_url": best_match.photo_url,
+                        "confidence": best_score,
+                    }
+                )
                 attendance = Attendance(
                     student_id=best_match.id,
                     session_id=session.id,
@@ -54,6 +62,6 @@ def process_attendance(db: DBSession, image_bytes: bytes, session_date: date, se
     return {
         "total_detected": total_detected,
         "total_matched": len(matched_students),
-        "matched_students": [s["name"] for s in matched_students],
+        "matched_students": matched_students,
         "unmatched_count": total_detected - len(matched_students),
     }

@@ -9,7 +9,7 @@ class AttendanceResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final totalDetected = result['total_detected'] ?? 0;
     final totalMatched = result['total_matched'] ?? 0;
-    final matchedStudents = List<String>.from(result['matched_students'] ?? []);
+    final matchedStudents = _matchedStudents();
     final unmatchedCount = result['unmatched_count'] ?? 0;
 
     return Scaffold(
@@ -23,7 +23,6 @@ class AttendanceResultScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Summary cards
             Row(
               children: [
                 _buildCard('Detected', '$totalDetected', Colors.blue),
@@ -36,20 +35,126 @@ class AttendanceResultScreen extends StatelessWidget {
             const SizedBox(height: 24),
             const Text('Present Students', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            // Student list
+            const Row(
+              children: [
+                Expanded(flex: 3, child: Text('Name', style: TextStyle(fontWeight: FontWeight.bold))),
+                Expanded(flex: 2, child: Text('Belt', style: TextStyle(fontWeight: FontWeight.bold))),
+                SizedBox(width: 84, child: Text('Photo', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold))),
+              ],
+            ),
+            const SizedBox(height: 8),
+            const Divider(height: 1),
             Expanded(
               child: matchedStudents.isEmpty
                   ? const Center(child: Text('No students matched', style: TextStyle(color: Colors.grey)))
-                  : ListView.builder(
+                  : ListView.separated(
                       itemCount: matchedStudents.length,
-                      itemBuilder: (_, index) => ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.black,
-                          child: Text('${index + 1}', style: const TextStyle(color: Colors.white)),
-                        ),
-                        title: Text(matchedStudents[index]),
-                      ),
+                      separatorBuilder: (_, __) => const Divider(height: 1),
+                      itemBuilder: (context, index) => _studentRow(context, matchedStudents[index]),
                     ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<Map<String, dynamic>> _matchedStudents() {
+    final raw = result['matched_students'];
+    if (raw is! List) return [];
+    return raw.map((item) {
+      if (item is Map<String, dynamic>) return item;
+      if (item is Map) return Map<String, dynamic>.from(item);
+      return {'name': item.toString(), 'belt_color': '', 'photo_url': null};
+    }).toList();
+  }
+
+  Widget _studentRow(BuildContext context, Map<String, dynamic> student) {
+    final photoUrl = student['photo_url'] as String?;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(student['name'] ?? '', style: const TextStyle(fontSize: 16)),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text((student['belt_color'] ?? '').toString().toUpperCase()),
+          ),
+          SizedBox(
+            width: 84,
+            height: 84,
+            child: InkWell(
+              onTap: photoUrl == null || photoUrl.isEmpty ? null : () => _showPhotoPreview(context, student),
+              borderRadius: BorderRadius.circular(4),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: _photoImage(photoUrl, iconSize: 34),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _photoImage(String? photoUrl, {double iconSize = 28}) {
+    if (photoUrl == null || photoUrl.isEmpty) {
+      return Container(
+        color: Colors.grey.shade200,
+        child: Icon(Icons.person, color: Colors.grey, size: iconSize),
+      );
+    }
+    return Image.network(
+      photoUrl,
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) => Container(
+        color: Colors.grey.shade200,
+        child: Icon(Icons.broken_image, color: Colors.grey, size: iconSize),
+      ),
+    );
+  }
+
+  void _showPhotoPreview(BuildContext context, Map<String, dynamic> student) {
+    final photoUrl = student['photo_url'] as String?;
+    if (photoUrl == null || photoUrl.isEmpty) return;
+
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        insetPadding: const EdgeInsets.all(24),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 360, maxHeight: 460),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(photoUrl, fit: BoxFit.contain),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    student['name'] ?? '',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: IconButton(
+                tooltip: 'Close',
+                icon: const Icon(Icons.close),
+                onPressed: () => Navigator.pop(context),
+              ),
             ),
           ],
         ),

@@ -225,7 +225,7 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
             children: [
               Expanded(flex: 3, child: Text('Name', style: TextStyle(fontWeight: FontWeight.bold))),
               Expanded(flex: 2, child: Text('Belt', style: TextStyle(fontWeight: FontWeight.bold))),
-              SizedBox(width: 56, child: Text('Photo', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold))),
+              SizedBox(width: 84, child: Text('Photo', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold))),
             ],
           ),
         ),
@@ -258,23 +258,15 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
             child: Text((student['belt_color'] ?? '').toString().toUpperCase()),
           ),
           SizedBox(
-            width: 56,
-            height: 56,
-            child: ClipRRect(
+            width: 84,
+            height: 84,
+            child: InkWell(
+              onTap: photoUrl == null || photoUrl.isEmpty ? null : () => _showPhotoPreview(student),
               borderRadius: BorderRadius.circular(4),
-              child: photoUrl == null || photoUrl.isEmpty
-                  ? Container(
-                      color: Colors.grey.shade200,
-                      child: const Icon(Icons.person, color: Colors.grey),
-                    )
-                  : Image.network(
-                      photoUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => Container(
-                        color: Colors.grey.shade200,
-                        child: const Icon(Icons.broken_image, color: Colors.grey),
-                      ),
-                    ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: _photoImage(photoUrl, iconSize: 34),
+              ),
             ),
           ),
         ],
@@ -301,11 +293,78 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
   Widget _studentAvatar(Map<String, dynamic> student) {
     final photoUrl = student['photo_url'] as String?;
     if (photoUrl != null && photoUrl.isNotEmpty) {
-      return CircleAvatar(backgroundImage: NetworkImage(photoUrl));
+      return InkWell(
+        onTap: () => _showPhotoPreview(student),
+        customBorder: const CircleBorder(),
+        child: CircleAvatar(radius: 30, backgroundImage: NetworkImage(photoUrl)),
+      );
     }
     return CircleAvatar(
+      radius: 30,
       backgroundColor: Colors.black,
       child: Text(student['name'][0].toUpperCase(), style: const TextStyle(color: Colors.white)),
+    );
+  }
+
+  Widget _photoImage(String? photoUrl, {double iconSize = 28}) {
+    if (photoUrl == null || photoUrl.isEmpty) {
+      return Container(
+        color: Colors.grey.shade200,
+        child: Icon(Icons.person, color: Colors.grey, size: iconSize),
+      );
+    }
+    return Image.network(
+      photoUrl,
+      fit: BoxFit.cover,
+      errorBuilder: (_, __, ___) => Container(
+        color: Colors.grey.shade200,
+        child: Icon(Icons.broken_image, color: Colors.grey, size: iconSize),
+      ),
+    );
+  }
+
+  void _showPhotoPreview(Map<String, dynamic> student) {
+    final photoUrl = student['photo_url'] as String?;
+    if (photoUrl == null || photoUrl.isEmpty) return;
+
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        insetPadding: const EdgeInsets.all(24),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 360, maxHeight: 460),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(photoUrl, fit: BoxFit.contain),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    student['name'] ?? '',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: IconButton(
+                tooltip: 'Close',
+                icon: const Icon(Icons.close),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

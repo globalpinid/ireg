@@ -21,7 +21,7 @@ class StudentResponse(BaseModel):
 class AttendanceResult(BaseModel):
     total_detected: int
     total_matched: int
-    matched_students: list[str]
+    matched_students: list[dict]
     unmatched_count: int
 
 
