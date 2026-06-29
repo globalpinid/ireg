@@ -17,14 +17,25 @@ def process_attendance(db: DBSession, image_bytes: bytes, session_date: date, se
     # Get all enrolled students
     students = db.query(Student).filter(Student.embedding.isnot(None)).all()
 
-    # Create session record
-    session = Session(
-        session_date=session_date,
-        session_number=session_number,
-        total_detected=total_detected,
+    session = (
+        db.query(Session)
+        .filter(
+            Session.session_date == session_date,
+            Session.session_number == session_number,
+        )
+        .order_by(Session.id)
+        .first()
     )
-    db.add(session)
-    db.flush()
+    if session:
+        session.total_detected = (session.total_detected or 0) + total_detected
+    else:
+        session = Session(
+            session_date=session_date,
+            session_number=session_number,
+            total_detected=total_detected,
+        )
+        db.add(session)
+        db.flush()
 
     # Match each detected face against enrolled students
     matched_students = []
@@ -51,7 +62,17 @@ def process_attendance(db: DBSession, image_bytes: bytes, session_date: date, se
         )
 
         if is_matched:
-            # Avoid duplicate marking in same session
+            already_marked = (
+                db.query(Attendance)
+                .join(Session, Session.id == Attendance.session_id)
+                .filter(
+                    Attendance.student_id == best_match.id,
+                    Session.session_date == session_date,
+                    Session.session_number == session_number,
+                )
+                .first()
+            )
+
             if best_match.id not in [s["id"] for s in matched_students]:
                 matched_students.append(
                     {
@@ -62,6 +83,8 @@ def process_attendance(db: DBSession, image_bytes: bytes, session_date: date, se
                         "confidence": best_score,
                     }
                 )
+
+            if not already_marked:
                 attendance = Attendance(
                     student_id=best_match.id,
                     session_id=session.id,
@@ -69,7 +92,16 @@ def process_attendance(db: DBSession, image_bytes: bytes, session_date: date, se
                 )
                 db.add(attendance)
 
-    session.total_matched = len(matched_students)
+    session.total_matched = (
+        db.query(Attendance.student_id)
+        .join(Session, Session.id == Attendance.session_id)
+        .filter(
+            Session.session_date == session_date,
+            Session.session_number == session_number,
+        )
+        .distinct()
+        .count()
+    )
     db.commit()
 
     return {

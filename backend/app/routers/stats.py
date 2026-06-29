@@ -20,40 +20,61 @@ def get_session_stats(session_id: int, db: DBSession = Depends(get_db)):
 @router.get("/day")
 def get_day_stats(target_date: date = Query(default_factory=date.today), db: DBSession = Depends(get_db)):
     """Get attendance stats for a specific day."""
-    sessions = (
-        db.query(Session)
-        .filter(Session.session_date == target_date)
-        .order_by(Session.session_number, Session.id)
-        .all()
-    )
+    session_numbers = [
+        row[0]
+        for row in (
+            db.query(Session.session_number)
+            .filter(Session.session_date == target_date)
+            .distinct()
+            .order_by(Session.session_number)
+            .all()
+        )
+    ]
+    session_count = len(session_numbers)
     unique_students = (
         db.query(Attendance.student_id)
-        .join(Session)
+        .join(Session, Session.id == Attendance.session_id)
         .filter(Session.session_date == target_date)
         .distinct()
         .count()
     )
     return {
         "date": target_date,
-        "total_sessions": len(sessions),
+        "total_sessions": session_count,
         "unique_students_present": unique_students,
-        "sessions": [_session_summary(db, s) for s in sessions],
+        "sessions": [_session_summary(db, target_date, session_number) for session_number in session_numbers],
     }
 
 
-def _session_summary(db: DBSession, session: Session) -> dict:
+def _session_summary(db: DBSession, target_date: date, session_number: int) -> dict:
+    session_rows = (
+        db.query(Session)
+        .filter(
+            Session.session_date == target_date,
+            Session.session_number == session_number,
+        )
+        .order_by(Session.id)
+        .all()
+    )
     students = (
         db.query(Student)
-        .join(Attendance)
-        .filter(Attendance.session_id == session.id)
+        .join(Attendance, Attendance.student_id == Student.id)
+        .join(Session, Session.id == Attendance.session_id)
+        .filter(
+            Session.session_date == target_date,
+            Session.session_number == session_number,
+        )
+        .distinct()
         .order_by(Student.name)
         .all()
     )
+    total_detected = sum(session.total_detected or 0 for session in session_rows)
+
     return {
-        "id": session.id,
-        "session_number": session.session_number,
-        "total_detected": session.total_detected,
-        "total_matched": session.total_matched,
+        "id": session_rows[0].id if session_rows else None,
+        "session_number": session_number,
+        "total_detected": total_detected,
+        "total_matched": len({student.id for student in students}),
         "unique_students_present": len({student.id for student in students}),
         "students": [
             {
@@ -78,7 +99,7 @@ def get_week_stats(week_start: date = Query(default=None), db: DBSession = Depen
     sessions = db.query(Session).filter(Session.session_date.between(week_start, week_end)).all()
     unique_students = (
         db.query(Attendance.student_id)
-        .join(Session)
+        .join(Session, Session.id == Attendance.session_id)
         .filter(Session.session_date.between(week_start, week_end))
         .distinct()
         .count()
@@ -106,7 +127,7 @@ def get_month_stats(year: int = Query(default=None), month: int = Query(default=
     sessions = db.query(Session).filter(Session.session_date.between(month_start, month_end)).all()
     unique_students = (
         db.query(Attendance.student_id)
-        .join(Session)
+        .join(Session, Session.id == Attendance.session_id)
         .filter(Session.session_date.between(month_start, month_end))
         .distinct()
         .count()
@@ -125,8 +146,14 @@ def get_student_stats(student_id: int, db: DBSession = Depends(get_db)):
     student = db.query(Student).filter(Student.id == student_id).first()
     if not student:
         raise HTTPException(status_code=404, detail="Student not found")
-    total_sessions = db.query(Session).count()
-    present = db.query(Attendance).filter(Attendance.student_id == student_id).count()
+    total_sessions = db.query(Session.session_date, Session.session_number).distinct().count()
+    present = (
+        db.query(Session.session_date, Session.session_number)
+        .join(Attendance, Attendance.session_id == Session.id)
+        .filter(Attendance.student_id == student_id)
+        .distinct()
+        .count()
+    )
     absent = total_sessions - present
     percentage = (present / total_sessions * 100) if total_sessions > 0 else 0
 
