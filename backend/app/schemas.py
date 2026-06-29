@@ -11,6 +11,7 @@ class StudentResponse(BaseModel):
     id: int
     name: str
     belt_color: str
+    photo_url: str | None = None
     enrolled_at: datetime
 
     class Config:

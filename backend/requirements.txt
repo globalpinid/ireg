@@ -6,9 +6,10 @@ pgvector==0.2.4
 python-dotenv==1.0.0
 python-multipart==0.0.6
 insightface==0.7.3
-onnxruntime==1.19.0
+onnxruntime>=1.20.0,<2.0.0
 opencv-python-headless==4.8.1.78
 numpy>=2.0.0
 Pillow==10.1.0
 pydantic[email]==2.5.2
 pydantic-settings==2.1.0
+google-cloud-storage==2.19.0

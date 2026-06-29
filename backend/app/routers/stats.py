@@ -1,6 +1,5 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session as DBSession
-from sqlalchemy import func
 from app.database import get_db
 from app.models import Student, Session, Attendance
 from app.schemas import StudentStats, SessionResponse
@@ -13,13 +12,20 @@ router = APIRouter(prefix="/stats", tags=["stats"])
 def get_session_stats(session_id: int, db: DBSession = Depends(get_db)):
     """Get stats for a specific session."""
     session = db.query(Session).filter(Session.id == session_id).first()
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
     return session
 
 
 @router.get("/day")
 def get_day_stats(target_date: date = Query(default_factory=date.today), db: DBSession = Depends(get_db)):
     """Get attendance stats for a specific day."""
-    sessions = db.query(Session).filter(Session.session_date == target_date).all()
+    sessions = (
+        db.query(Session)
+        .filter(Session.session_date == target_date)
+        .order_by(Session.session_number, Session.id)
+        .all()
+    )
     unique_students = (
         db.query(Attendance.student_id)
         .join(Session)
@@ -31,7 +37,33 @@ def get_day_stats(target_date: date = Query(default_factory=date.today), db: DBS
         "date": target_date,
         "total_sessions": len(sessions),
         "unique_students_present": unique_students,
-        "sessions": [{"id": s.id, "session_number": s.session_number, "total_detected": s.total_detected, "total_matched": s.total_matched} for s in sessions],
+        "sessions": [_session_summary(db, s) for s in sessions],
+    }
+
+
+def _session_summary(db: DBSession, session: Session) -> dict:
+    students = (
+        db.query(Student)
+        .join(Attendance)
+        .filter(Attendance.session_id == session.id)
+        .order_by(Student.name)
+        .all()
+    )
+    return {
+        "id": session.id,
+        "session_number": session.session_number,
+        "total_detected": session.total_detected,
+        "total_matched": session.total_matched,
+        "unique_students_present": len({student.id for student in students}),
+        "students": [
+            {
+                "id": student.id,
+                "name": student.name,
+                "belt_color": student.belt_color,
+                "photo_url": student.photo_url,
+            }
+            for student in students
+        ],
     }
 
 
@@ -91,6 +123,8 @@ def get_month_stats(year: int = Query(default=None), month: int = Query(default=
 def get_student_stats(student_id: int, db: DBSession = Depends(get_db)):
     """Get attendance stats for a specific student."""
     student = db.query(Student).filter(Student.id == student_id).first()
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
     total_sessions = db.query(Session).count()
     present = db.query(Attendance).filter(Attendance.student_id == student_id).count()
     absent = total_sessions - present

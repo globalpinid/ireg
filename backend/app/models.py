@@ -12,6 +12,7 @@ class Student(Base):
     name = Column(String, nullable=False)
     belt_color = Column(String, default="white")
     embedding = Column(Vector(512))
+    photo_url = Column(String, nullable=True)
     enrolled_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
     attendances = relationship("Attendance", back_populates="student")

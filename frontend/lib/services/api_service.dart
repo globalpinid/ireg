@@ -47,6 +47,13 @@ class ApiService {
     return jsonDecode(response.body);
   }
 
+  Future<Map<String, dynamic>> getYesterdayStats() async {
+    final yesterday = DateTime.now().subtract(const Duration(days: 1));
+    final date =
+        '${yesterday.year.toString().padLeft(4, '0')}-${yesterday.month.toString().padLeft(2, '0')}-${yesterday.day.toString().padLeft(2, '0')}';
+    return getDayStats(date: date);
+  }
+
   Future<Map<String, dynamic>> getWeekStats() async {
     var response = await http.get(Uri.parse('$baseUrl/stats/week'));
     return jsonDecode(response.body);

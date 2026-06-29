@@ -24,3 +24,6 @@ def init_db():
         conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
         conn.commit()
     Base.metadata.create_all(bind=engine)
+    with engine.connect() as conn:
+        conn.execute(text("ALTER TABLE students ADD COLUMN IF NOT EXISTS photo_url VARCHAR"))
+        conn.commit()

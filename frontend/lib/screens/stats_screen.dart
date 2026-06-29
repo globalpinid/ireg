@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../services/api_service.dart';
 
 class StatsScreen extends StatefulWidget {
@@ -13,10 +14,15 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
   late TabController _tabController;
 
   Map<String, dynamic>? _dayStats;
-  Map<String, dynamic>? _weekStats;
-  Map<String, dynamic>? _monthStats;
+  Map<String, dynamic>? _yesterdayStats;
+  Map<String, dynamic>? _dateStats;
   List<dynamic>? _students;
+  Map<String, dynamic>? _selectedDaySession;
+  Map<String, dynamic>? _selectedYesterdaySession;
+  Map<String, dynamic>? _selectedDateSession;
+  DateTime? _selectedDate;
   bool _isLoading = true;
+  bool _isDateLoading = false;
 
   @override
   void initState() {
@@ -25,19 +31,23 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
     _loadData();
   }
 
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   Future<void> _loadData() async {
     try {
       final results = await Future.wait([
         _api.getDayStats(),
-        _api.getWeekStats(),
-        _api.getMonthStats(),
+        _api.getYesterdayStats(),
         _api.getStudents(),
       ]);
       setState(() {
         _dayStats = results[0] as Map<String, dynamic>;
-        _weekStats = results[1] as Map<String, dynamic>;
-        _monthStats = results[2] as Map<String, dynamic>;
-        _students = results[3] as List<dynamic>;
+        _yesterdayStats = results[1] as Map<String, dynamic>;
+        _students = results[2] as List<dynamic>;
         _isLoading = false;
       });
     } catch (e) {
@@ -45,6 +55,37 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error loading stats: $e'), backgroundColor: Colors.red),
+        );
+      }
+    }
+  }
+
+  Future<void> _pickDate() async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now(),
+    );
+    if (picked == null) return;
+
+    setState(() {
+      _selectedDate = picked;
+      _selectedDateSession = null;
+      _isDateLoading = true;
+    });
+
+    try {
+      final stats = await _api.getDayStats(date: _formatDate(picked));
+      setState(() {
+        _dateStats = stats;
+        _isDateLoading = false;
+      });
+    } catch (e) {
+      setState(() => _isDateLoading = false);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error loading date: $e'), backgroundColor: Colors.red),
         );
       }
     }
@@ -63,8 +104,8 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
           unselectedLabelColor: Colors.grey,
           tabs: const [
             Tab(text: 'Day'),
-            Tab(text: 'Week'),
-            Tab(text: 'Month'),
+            Tab(text: 'Yesterday'),
+            Tab(text: 'Date'),
             Tab(text: 'Students'),
           ],
         ),
@@ -74,65 +115,168 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
           : TabBarView(
               controller: _tabController,
               children: [
-                _buildDayTab(),
-                _buildWeekTab(),
-                _buildMonthTab(),
+                _buildSessionTab(
+                  stats: _dayStats,
+                  selectedSession: _selectedDaySession,
+                  onSessionSelected: (session) => setState(() => _selectedDaySession = session),
+                  onBack: () => setState(() => _selectedDaySession = null),
+                ),
+                _buildSessionTab(
+                  stats: _yesterdayStats,
+                  selectedSession: _selectedYesterdaySession,
+                  onSessionSelected: (session) => setState(() => _selectedYesterdaySession = session),
+                  onBack: () => setState(() => _selectedYesterdaySession = null),
+                ),
+                _buildDateTab(),
                 _buildStudentsTab(),
               ],
             ),
     );
   }
 
-  Widget _buildDayTab() {
-    if (_dayStats == null) return const Center(child: Text('No data'));
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Date: ${_dayStats!['date']}', style: const TextStyle(fontSize: 18)),
-          const SizedBox(height: 16),
-          _statRow('Total Sessions', '${_dayStats!['total_sessions']}'),
-          _statRow('Unique Students Present', '${_dayStats!['unique_students_present']}'),
-          const SizedBox(height: 16),
-          const Text('Sessions:', style: TextStyle(fontWeight: FontWeight.bold)),
-          ...(_dayStats!['sessions'] as List).map((s) => ListTile(
-                title: Text('Session ${s['session_number']}'),
-                subtitle: Text('Detected: ${s['total_detected']} | Matched: ${s['total_matched']}'),
-              )),
-        ],
-      ),
+  Widget _buildDateTab() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+          child: OutlinedButton.icon(
+            onPressed: _isDateLoading ? null : _pickDate,
+            icon: const Icon(Icons.calendar_today),
+            label: Text(_selectedDate == null ? 'Select Date' : DateFormat.yMMMd().format(_selectedDate!)),
+          ),
+        ),
+        Expanded(
+          child: _isDateLoading
+              ? const Center(child: CircularProgressIndicator())
+              : _selectedDate == null
+                  ? const Center(child: Text('Choose a date to view sessions'))
+                  : _buildSessionTab(
+                      stats: _dateStats,
+                      selectedSession: _selectedDateSession,
+                      onSessionSelected: (session) => setState(() => _selectedDateSession = session),
+                      onBack: () => setState(() => _selectedDateSession = null),
+                    ),
+        ),
+      ],
     );
   }
 
-  Widget _buildWeekTab() {
-    if (_weekStats == null) return const Center(child: Text('No data'));
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('${_weekStats!['week_start']} to ${_weekStats!['week_end']}', style: const TextStyle(fontSize: 18)),
-          const SizedBox(height: 16),
-          _statRow('Total Sessions', '${_weekStats!['total_sessions']}'),
-          _statRow('Unique Students Present', '${_weekStats!['unique_students_present']}'),
-        ],
-      ),
+  Widget _buildSessionTab({
+    required Map<String, dynamic>? stats,
+    required Map<String, dynamic>? selectedSession,
+    required ValueChanged<Map<String, dynamic>> onSessionSelected,
+    required VoidCallback onBack,
+  }) {
+    if (stats == null) return const Center(child: Text('No data'));
+    if (selectedSession != null) return _buildSessionStudents(selectedSession, onBack);
+
+    final sessions = List<Map<String, dynamic>>.from(stats['sessions'] ?? []);
+    if (sessions.isEmpty) {
+      return Center(child: Text('No sessions for ${stats['date']}'));
+    }
+
+    return ListView.separated(
+      padding: const EdgeInsets.all(16),
+      itemCount: sessions.length,
+      separatorBuilder: (_, __) => const Divider(height: 1),
+      itemBuilder: (context, index) {
+        final session = sessions[index];
+        final count = session['unique_students_present'] ?? session['total_matched'] ?? 0;
+        return ListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(
+            'Session ${session['session_number']}',
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+          trailing: TextButton(
+            onPressed: () => onSessionSelected(session),
+            child: Text('$count Students'),
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildMonthTab() {
-    if (_monthStats == null) return const Center(child: Text('No data'));
+  Widget _buildSessionStudents(Map<String, dynamic> session, VoidCallback onBack) {
+    final students = List<Map<String, dynamic>>.from(session['students'] ?? []);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: IconButton(
+            tooltip: 'Back',
+            icon: const Icon(Icons.arrow_back),
+            onPressed: onBack,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+          child: Text(
+            'Session ${session['session_number']}',
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            children: [
+              Expanded(flex: 3, child: Text('Name', style: TextStyle(fontWeight: FontWeight.bold))),
+              Expanded(flex: 2, child: Text('Belt', style: TextStyle(fontWeight: FontWeight.bold))),
+              SizedBox(width: 56, child: Text('Photo', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold))),
+            ],
+          ),
+        ),
+        const Divider(height: 1),
+        Expanded(
+          child: students.isEmpty
+              ? const Center(child: Text('No students marked present'))
+              : ListView.separated(
+                  itemCount: students.length,
+                  separatorBuilder: (_, __) => const Divider(height: 1),
+                  itemBuilder: (context, index) => _studentRow(students[index]),
+                ),
+        ),
+      ],
+    );
+  }
+
+  Widget _studentRow(Map<String, dynamic> student) {
+    final photoUrl = student['photo_url'] as String?;
     return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      child: Row(
         children: [
-          Text('Month: ${_monthStats!['month']}', style: const TextStyle(fontSize: 18)),
-          const SizedBox(height: 16),
-          _statRow('Total Sessions', '${_monthStats!['total_sessions']}'),
-          _statRow('Unique Students', '${_monthStats!['unique_students_present']}'),
-          _statRow('Days with Sessions', '${_monthStats!['total_days_with_sessions']}'),
+          Expanded(
+            flex: 3,
+            child: Text(student['name'] ?? '', style: const TextStyle(fontSize: 16)),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text((student['belt_color'] ?? '').toString().toUpperCase()),
+          ),
+          SizedBox(
+            width: 56,
+            height: 56,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: photoUrl == null || photoUrl.isEmpty
+                  ? Container(
+                      color: Colors.grey.shade200,
+                      child: const Icon(Icons.person, color: Colors.grey),
+                    )
+                  : Image.network(
+                      photoUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        color: Colors.grey.shade200,
+                        child: const Icon(Icons.broken_image, color: Colors.grey),
+                      ),
+                    ),
+            ),
+          ),
         ],
       ),
     );
@@ -145,15 +289,23 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
       itemBuilder: (context, index) {
         final student = _students![index];
         return ListTile(
-          leading: CircleAvatar(
-            backgroundColor: Colors.black,
-            child: Text(student['name'][0].toUpperCase(), style: const TextStyle(color: Colors.white)),
-          ),
+          leading: _studentAvatar(student),
           title: Text(student['name']),
           subtitle: Text('Belt: ${student['belt_color']}'),
           onTap: () => _showStudentStats(student['id'], student['name']),
         );
       },
+    );
+  }
+
+  Widget _studentAvatar(Map<String, dynamic> student) {
+    final photoUrl = student['photo_url'] as String?;
+    if (photoUrl != null && photoUrl.isNotEmpty) {
+      return CircleAvatar(backgroundImage: NetworkImage(photoUrl));
+    }
+    return CircleAvatar(
+      backgroundColor: Colors.black,
+      child: Text(student['name'][0].toUpperCase(), style: const TextStyle(color: Colors.white)),
     );
   }
 
@@ -197,5 +349,9 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
         ],
       ),
     );
+  }
+
+  String _formatDate(DateTime value) {
+    return '${value.year.toString().padLeft(4, '0')}-${value.month.toString().padLeft(2, '0')}-${value.day.toString().padLeft(2, '0')}';
   }
 }
