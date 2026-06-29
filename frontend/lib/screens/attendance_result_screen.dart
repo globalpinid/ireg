@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 class AttendanceResultScreen extends StatelessWidget {
@@ -11,6 +13,7 @@ class AttendanceResultScreen extends StatelessWidget {
     final totalMatched = result['total_matched'] ?? 0;
     final matchedStudents = _matchedStudents();
     final unmatchedCount = result['unmatched_count'] ?? 0;
+    final annotatedImage = _annotatedImageBytes();
 
     return Scaffold(
       appBar: AppBar(
@@ -32,6 +35,29 @@ class AttendanceResultScreen extends StatelessWidget {
                 _buildCard('Unknown', '$unmatchedCount', Colors.orange),
               ],
             ),
+            if (annotatedImage != null) ...[
+              const SizedBox(height: 20),
+              GestureDetector(
+                onTap: () => _showAnnotatedPreview(context, annotatedImage),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.memory(
+                    annotatedImage,
+                    height: 220,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _legendDot(Colors.green, 'Matched'),
+                  const SizedBox(width: 16),
+                  _legendDot(Colors.red, 'Unmatched'),
+                ],
+              ),
+            ],
             const SizedBox(height: 24),
             const Text('Present Students', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
@@ -67,6 +93,12 @@ class AttendanceResultScreen extends StatelessWidget {
       if (item is Map) return Map<String, dynamic>.from(item);
       return {'name': item.toString(), 'belt_color': '', 'photo_url': null};
     }).toList();
+  }
+
+  Uint8List? _annotatedImageBytes() {
+    final annotatedImage = result['annotated_image'];
+    if (annotatedImage is! String || annotatedImage.isEmpty) return null;
+    return base64Decode(annotatedImage);
   }
 
   Widget _studentRow(BuildContext context, Map<String, dynamic> student) {
@@ -159,6 +191,51 @@ class AttendanceResultScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showAnnotatedPreview(BuildContext context, Uint8List imageBytes) {
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        insetPadding: const EdgeInsets.all(16),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: InteractiveViewer(
+                minScale: 0.7,
+                maxScale: 4,
+                child: Image.memory(imageBytes, fit: BoxFit.contain),
+              ),
+            ),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: IconButton(
+                tooltip: 'Close',
+                icon: const Icon(Icons.close),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _legendDot(Color color, String label) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
+        const SizedBox(width: 6),
+        Text(label),
+      ],
     );
   }
 

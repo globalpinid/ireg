@@ -23,6 +23,7 @@ class AttendanceResult(BaseModel):
     total_matched: int
     matched_students: list[dict]
     unmatched_count: int
+    annotated_image: str | None = None
 
 
 class SessionResponse(BaseModel):

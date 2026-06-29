@@ -35,6 +35,14 @@ def get_all_embeddings_from_image(image_bytes: bytes) -> list[np.ndarray]:
     return [f.embedding for f in faces]
 
 
+def get_faces_from_image(image_bytes: bytes) -> tuple[np.ndarray, list[dict]]:
+    """Extract face embeddings and bounding boxes from a group photo."""
+    img = _bytes_to_cv2(image_bytes)
+    app = get_face_app()
+    faces = app.get(img)
+    return img, [{"embedding": f.embedding, "bbox": f.bbox.astype(int).tolist()} for f in faces]
+
+
 def compute_similarity(embedding1: np.ndarray, embedding2: np.ndarray) -> float:
     """Cosine similarity between two embeddings."""
     return float(np.dot(embedding1, embedding2) / (np.linalg.norm(embedding1) * np.linalg.norm(embedding2)))
