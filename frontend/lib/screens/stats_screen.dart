@@ -186,7 +186,7 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
         return ListTile(
           contentPadding: EdgeInsets.zero,
           title: Text(
-            'Session ${session['session_number']}',
+            session['session_label'] ?? 'Session ${session['session_number']}',
             style: const TextStyle(fontWeight: FontWeight.w600),
           ),
           trailing: TextButton(
@@ -215,7 +215,7 @@ class _StatsScreenState extends State<StatsScreen> with SingleTickerProviderStat
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
           child: Text(
-            'Session ${session['session_number']}',
+            session['session_label'] ?? 'Session ${session['session_number']}',
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),

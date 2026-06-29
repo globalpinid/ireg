@@ -16,6 +16,15 @@ class _HomeScreenState extends State<HomeScreen> {
   final ApiService _api = ApiService();
   bool _isProcessing = false;
   int _sessionNumber = 1;
+  final List<_SessionOption> _sessions = const [
+    _SessionOption(1, '5-AM', true),
+    _SessionOption(2, '6-AM', true),
+    _SessionOption(3, '7-AM', true),
+    _SessionOption(4, '4-PM', false),
+    _SessionOption(5, '5-PM', false),
+    _SessionOption(6, '6-PM', false),
+    _SessionOption(7, '7-PM', false),
+  ];
 
   Future<void> _takeGroupPhoto() async {
     final picker = ImagePicker();
@@ -82,7 +91,31 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Text('Session: ', style: TextStyle(fontSize: 16)),
                 DropdownButton<int>(
                   value: _sessionNumber,
-                  items: [1, 2, 3].map((n) => DropdownMenuItem(value: n, child: Text('$n'))).toList(),
+                  selectedItemBuilder: (_) => _sessions
+                      .map(
+                        (session) => Text(
+                          session.label,
+                          style: TextStyle(
+                            color: session.isMorning ? Colors.blue : Colors.red,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  items: _sessions
+                      .map(
+                        (session) => DropdownMenuItem(
+                          value: session.value,
+                          child: Text(
+                            session.label,
+                            style: TextStyle(
+                              color: session.isMorning ? Colors.blue : Colors.red,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
                   onChanged: (v) => setState(() => _sessionNumber = v!),
                 ),
               ],
@@ -110,4 +143,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+class _SessionOption {
+  final int value;
+  final String label;
+  final bool isMorning;
+
+  const _SessionOption(this.value, this.label, this.isMorning);
 }

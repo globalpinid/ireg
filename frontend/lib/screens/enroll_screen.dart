@@ -12,10 +12,25 @@ class EnrollScreen extends StatefulWidget {
 class _EnrollScreenState extends State<EnrollScreen> {
   final ApiService _api = ApiService();
   final _nameController = TextEditingController();
-  String _beltColor = 'white';
+  String _beltColor = 'WHITE';
   bool _isLoading = false;
 
-  final List<String> _beltColors = ['white', 'yellow', 'orange', 'green', 'blue', 'brown', 'black'];
+  final List<String> _beltColors = [
+    'WHITE',
+    'YELLOW',
+    'ORANGE',
+    'GREEN',
+    'BLUE',
+    'MAROON',
+    'BROWN 1',
+    'BROWN 2',
+    'BROWN 3',
+    'BLACK 1',
+    'BLACK 2',
+    'BLACK 3',
+    'BLACK 4',
+    'BLACK 5',
+  ];
 
   Future<void> _enrollStudent() async {
     if (_nameController.text.trim().isEmpty) {
@@ -84,7 +99,7 @@ class _EnrollScreenState extends State<EnrollScreen> {
                 labelText: 'Belt Color',
                 border: OutlineInputBorder(),
               ),
-              items: _beltColors.map((c) => DropdownMenuItem(value: c, child: Text(c.toUpperCase()))).toList(),
+              items: _beltColors.map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
               onChanged: (v) => setState(() => _beltColor = v!),
             ),
             const SizedBox(height: 32),

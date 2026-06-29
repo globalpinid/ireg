@@ -6,6 +6,15 @@ from app.schemas import StudentStats, SessionResponse
 from datetime import date, timedelta
 
 router = APIRouter(prefix="/stats", tags=["stats"])
+SESSION_LABELS = {
+    1: "5-AM",
+    2: "6-AM",
+    3: "7-AM",
+    4: "4-PM",
+    5: "5-PM",
+    6: "6-PM",
+    7: "7-PM",
+}
 
 
 @router.get("/session/{session_id}", response_model=SessionResponse)
@@ -73,6 +82,7 @@ def _session_summary(db: DBSession, target_date: date, session_number: int) -> d
     return {
         "id": session_rows[0].id if session_rows else None,
         "session_number": session_number,
+        "session_label": SESSION_LABELS.get(session_number, f"Session {session_number}"),
         "total_detected": total_detected,
         "total_matched": len({student.id for student in students}),
         "unique_students_present": len({student.id for student in students}),
